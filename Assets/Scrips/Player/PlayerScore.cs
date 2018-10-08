@@ -2,18 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerScore : MonoBehaviour
 {
     public float timeLeft = 120;
     public int playerScore = 0;
+    public GameObject timeLeftUI;
+    public GameObject playerScoreUI;
 
 	void Update ()
 	{
 	    timeLeft -= Time.deltaTime;
-	    if (timeLeft < 0.1)
+	    timeLeftUI.gameObject.GetComponent<Text>().text = ("Time Left: " + (int)timeLeft);
+	    playerScoreUI.gameObject.GetComponent<Text>().text = ("Score: " + playerScore);
+        if (timeLeft < 0.1)
 	    {
             SceneManager.LoadScene("Main");
 	    }
 	}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        CountScore();
+    }
+
+    void CountScore()
+    {
+        playerScore = playerScore + (int)(timeLeft * 10);
+    }
 }
