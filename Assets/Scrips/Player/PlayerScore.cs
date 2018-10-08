@@ -24,7 +24,10 @@ public class PlayerScore : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        CountScore();
+        if (collision.tag == "Collectable")
+        {
+            collision.GetComponent<CoinEffect>().ExecuteEfect(this.gameObject);
+        }
     }
 
     void CountScore()
